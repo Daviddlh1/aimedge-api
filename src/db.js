@@ -36,8 +36,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { Invoice, Client, Product } = sequelize.models;
 
-Client.hasMany(Invoice, { as: "client-invoices", foreignKey: "invoiceIid" });
-Invoice.belongsTo(Client, { as: "client" });
+Client.hasMany(Invoice);
+Invoice.belongsTo(Client);
 Invoice.belongsToMany(Product, {
   through: "invoice-product",
   timestamps: false,

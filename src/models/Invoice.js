@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "Invoice",
+    "invoice",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -10,9 +10,25 @@ module.exports = (sequelize) => {
         allowNull: false,
         primaryKey: true,
       },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      subTotal: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      discount: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      total: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
     },
     {
-      timeStamps: false,
+      timestamps: false,
     }
   );
 };

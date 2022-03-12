@@ -21,9 +21,16 @@ module.exports = (sequelize) => {
       phoneNumber: {
         type: DataTypes.INTEGER,
       },
+      email: {
+        type: DataTypes.STRING,
+      },
+      invoice_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
-      timeStamps: false,
+      timestamps: false,
     }
   );
 };
