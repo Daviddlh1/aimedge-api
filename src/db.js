@@ -38,6 +38,7 @@ const { Invoice, Client, Product } = sequelize.models;
 
 Client.hasMany(Invoice);
 Invoice.belongsTo(Client);
+
 Invoice.belongsToMany(Product, {
   through: "invoice-product",
   timestamps: false,

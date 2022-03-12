@@ -19,14 +19,10 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       phoneNumber: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       email: {
         type: DataTypes.STRING,
-      },
-      invoice_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
       },
     },
     {
