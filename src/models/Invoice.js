@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       date: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       subTotal: {
@@ -24,6 +24,10 @@ module.exports = (sequelize) => {
       },
       total: {
         type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+      productQuantity: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
