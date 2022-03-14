@@ -1,3 +1,5 @@
+const res = require("express/lib/response");
+const { where } = require("sequelize/types");
 const { Client } = require("../db");
 
 const getAllClientsInvoices = async (req, res) => {
@@ -11,6 +13,21 @@ const getAllClientsInvoices = async (req, res) => {
   }
 };
 
+const getClientById = async (clientId) => {
+  try {
+    const client = await Client.findAll({
+      where: {
+        id: clientId,
+      },
+    });
+    console.log(client);
+  } catch (err) {
+    console.log(err);
+    res.send({ error: "error in getClientsById" });
+  }
+};
+
 module.exports = {
   getAllClientsInvoices,
+  getClientById,
 };
