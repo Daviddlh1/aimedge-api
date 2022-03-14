@@ -47,17 +47,13 @@ const createInvoice = async (req, res) => {
       productQuantity: JSON.stringify(invoiceProducts),
     });
 
-    console.log(createdInvoice.dataValues);
-
     const invoicesClient = await Client.findAll({
       where: {
         name: clientName,
       },
     });
-    console.log(invoicesClient[0].dataValues);
 
     const invoicesProducts = invoiceProducts.map(async (product) => {
-      console.log(product);
       const products = await Product.findAll({
         where: { name: product.productName },
       });
@@ -68,11 +64,8 @@ const createInvoice = async (req, res) => {
       promise.then((data) => createdInvoice.addProduct(data))
     );
 
-    createdInvoice.setClient(
-      invoicesClient[0].dataValues.id /* .map((data) => data.dataValues.id) */
-    );
+    createdInvoice.setClient(invoicesClient[0].dataValues.id);
     const a = await Invoice.findAll();
-    console.log(a[0].dataValues);
     res.status(200).send(createdInvoice);
   } catch (err) {
     console.log(err);
