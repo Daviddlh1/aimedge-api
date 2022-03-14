@@ -1,4 +1,4 @@
-const { Client, Invoice, Product } = require("../db");
+const { Client, Invoice, Product, PurchaseOrder } = require("../db");
 
 async function findAllInvoices() {
   const foundInvoices = await Invoice.findAll({ include: [Client, Product] });
@@ -31,23 +31,36 @@ const getInvoiceById = async (req, res) => {
 
 const createInvoice = async (req, res) => {
   try {
-    const { date, subTotal, discount, total, clientName, products } = req.body;
-    const createdInvoice = await Invoice.create({
-      date,
+    const {
+      invoiceDate,
       subTotal,
       discount,
       total,
-      productQuantity: JSON.stringify(products),
+      clientName,
+      invoiceProducts,
+    } = req.body;
+    const createdInvoice = await Invoice.create({
+      date: invoiceDate,
+      subTotal,
+      discount,
+      total,
+      productQuantity: JSON.stringify(invoiceProducts),
     });
+
+    console.log(createdInvoice.dataValues);
 
     const invoicesClient = await Client.findAll({
       where: {
         name: clientName,
       },
     });
+    console.log(invoicesClient[0].dataValues);
 
-    const invoicesProducts = products.map(async (product) => {
-      const products = await Product.findByPk(product.id);
+    const invoicesProducts = invoiceProducts.map(async (product) => {
+      console.log(product);
+      const products = await Product.findAll({
+        where: { name: product.productName },
+      });
       return products;
     });
 
@@ -55,7 +68,11 @@ const createInvoice = async (req, res) => {
       promise.then((data) => createdInvoice.addProduct(data))
     );
 
-    createdInvoice.setClient(invoicesClient.map((data) => data.dataValues.id));
+    createdInvoice.setClient(
+      invoicesClient[0].dataValues.id /* .map((data) => data.dataValues.id) */
+    );
+    const a = await Invoice.findAll();
+    console.log(a[0].dataValues);
     res.status(200).send(createdInvoice);
   } catch (err) {
     console.log(err);

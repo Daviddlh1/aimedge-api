@@ -1,4 +1,5 @@
 const productRouter = require("express").Router();
-const { Product } = require("../db");
+const productControllers = require("../controllers/productControllers");
 
+productRouter.get("/", productControllers.getAllProducts);
 module.exports = productRouter;
