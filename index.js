@@ -4,7 +4,7 @@ const fillDataBase = require("./src/controllers/data");
 
 conn.sync(/* { force: true } */).then(() => {
   server.listen(3001, () => {
-    fillDataBase();
+    /* fillDataBase(); */
     console.log("listening on port 3001");
   });
 });
